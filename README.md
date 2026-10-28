@@ -17,6 +17,18 @@
 
 Every audit returns a 0-100 trust score. The CLI exits with code 1 on a high-severity leak, so it gates CI.
 
+## Trust score
+
+The score starts at 100 and subtracts a penalty per finding by severity, with a floor of 0:
+
+| Severity | Penalty |
+|----------|---------|
+| high     | 35      |
+| medium   | 15      |
+| low      | 5       |
+
+Example: one medium and two low findings give 100 - 15 - 5 - 5 = 75.
+
 ## Demo
 
 $ leaklens demo.csv --target is_fraud --arena
